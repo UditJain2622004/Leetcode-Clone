@@ -4,54 +4,26 @@ import { execute } from "./api";
 import Editor from "@monaco-editor/react";
 import "./App.css";
 import "./index.js";
-
-const files = {
-  "script.py": {
-    name: "script.py",
-    language: "python",
-    id: 71,
-    value: "# Write your code",
-  },
-  "main.c": {
-    name: "main.c",
-    language: "c",
-    id: 48,
-    value: "// Write your code",
-  },
-  "main.cpp": {
-    name: "main.cpp",
-    language: "cpp",
-    id: 52,
-    value: "// Write your code",
-  },
-  "app.js": {
-    name: "app.js",
-    language: "javascript",
-    id: 93,
-    value: "// Write your code",
-  },
-  "main.java": {
-    name: "main.java",
-    language: "java",
-    id: 62,
-    value: "// Write your code",
-  },
-};
+import fileInfo from "./utils/fileInfo.js";
 
 function App() {
   const [fileName, setFileName] = useState("main.cpp");
   const editorRef = useRef(null);
-  const file = files[fileName];
+  const file = fileInfo[fileName];
 
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
 
-  async function getEditorValue() {
+  async function submit() {
     const source_code = editorRef.current.getValue();
-    // console.log(typeof code);
-    // alert(editorRef.current.getValue());
-    const response = await execute({ source_code, language_id: file.id });
+    const response = await execute(
+      {
+        source_code,
+        language_id: file.id,
+      },
+      "652b0b2db7c5ed659af6904a"
+    );
   }
 
   function handleEditorValidation(markers) {
@@ -66,7 +38,7 @@ function App() {
       <button onClick={() => setFileName("script.py")}>Python</button>
       <button onClick={() => setFileName("main.java")}>Java</button>
       <button onClick={() => setFileName("app.js")}>Javascript</button>
-      <button onClick={() => getEditorValue()}>Get Editor Value</button>
+      <button onClick={() => submit()}>Submit</button>
       {/* <div
         id="editor-container"
         style={{
@@ -101,10 +73,11 @@ function App() {
       </div> */}
 
       <Editor
-        height="50vh"
+        height="100vh"
         width="50%"
         theme="vs-dark"
         onMount={handleEditorDidMount}
+        onValidate={handleEditorValidation}
         path={file.name}
         defaultLanguage={file.language}
         defaultValue={file.value}

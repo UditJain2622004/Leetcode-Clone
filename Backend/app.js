@@ -1,6 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+import bodyParser from "body-parser";
+
+// import executer from "./execute.js";
+import questionRouter from "./routes/questionRouter.js";
 
 dotenv.config({ path: "./config.env" });
 
@@ -17,6 +22,24 @@ mongoose
   .then(() => console.log("Database connection established"));
 
 const app = express();
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: "100kb" }));
+
+app.use("/questions", questionRouter);
+
+// app.post("/submit", async (req, res, next) => {
+//   // console.log(req.body);
+//   await executer(req.body);
+//   res.status(200).json({
+//     status: "success",
+//   });
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    trim: true,
+  },
   statement: {
     type: String,
   },
   examples: {
     type: [[String]],
   },
+  testCases: Array,
   constraints: {
     type: [String],
   },
@@ -15,6 +20,9 @@ const questionSchema = new mongoose.Schema({
     enum: ["Easy", "Medium", "Hard"],
   },
   tags: {
+    type: [String],
+  },
+  answers: {
     type: [String],
   },
 
