@@ -8,6 +8,8 @@ Router.route("/")
   .post(questionController.addQuestion);
 
 Router.route("/submit/:id").post(questionController.submitQuestion);
-Router.route("/:id").get(questionController.getQuestion);
+Router.route("/:id")
+  .get(questionController.getQuestion)
+  .delete(questionController.deleteQuestion);
 
 export default Router;

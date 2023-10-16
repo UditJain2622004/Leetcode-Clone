@@ -1,0 +1,93 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #282828;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.lang {
+  padding: 5px;
+  background-color: #1e1e1e;
+  position: sticky;
+  border-bottom: 2px solid #282828;
+  border-radius: 3%;
+}
+select {
+  border: none;
+  border-radius: 10%;
+  background-color: #1e1e1e;
+  color: #bfbfbf;
+}
+
+.question-statement {
+  padding: 30px;
+  background-color: #1e1e1e;
+  /* margin: 5px; */
+  border-right: 10px solid #282828;
+  border-left: 20px solid #282828;
+  /* border-bottom: 10px solid #282828; */
+  border-radius: 3%;
+  height: 99vh;
+  overflow-y: scroll;
+  color: #bfbfbf;
+}
+.solution {
+  height: 100%;
+  border-right: 10px solid #282828;
+  border-radius: 3%;
+  padding: 0;
+}
+::-webkit-scrollbar {
+  width: 3px;
+  height: 1px;
+  /* padding: 0;
+  margin: 0; */
+}
+::-webkit-scrollbar-thumb {
+  background: #636262; /* Color of the thumb */
+  border-radius: 5px; /* Round the thumb */
+  /* width: 1px; */
+}
+
+.buttons {
+  padding: 10px 15px;
+  border-top: 10px solid #282828;
+  border-radius: 10%;
+  /* border-bottom: 10px solid #282828; */
+  background-color: #1e1e1e;
+  text-align: right;
+  /* border-top: 1px solid beige; */
+  /* border-bottom: 1px solid beige; */
+}
+.submit {
+  border-radius: 10%;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(158, 246, 158);
+  padding: 5px 15px;
+}
+
+.statement {
+  margin-bottom: 35px;
+}
+.examples {
+  margin-bottom: 35px;
+}
+.bold {
+  color: #f4f1f1;
+}
+.console {
+  border: none;
+  background-color: #1e1e1e;
+  color: #bfbfbf;
+  margin-bottom: 10px;
+}
+.console-area {
+  padding: 10px 15px;
+  border-top: 10px solid #282828;
+  background-color: #282828;
+  /* text-align: right; */
+  height: 300px;
+}
+.editor {
+  height: 80vh;
+}

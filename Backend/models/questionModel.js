@@ -9,9 +9,10 @@ const questionSchema = new mongoose.Schema({
     type: String,
   },
   examples: {
-    type: [[String]],
+    type: [Array],
   },
-  testCases: Array,
+  testCases: Object,
+  // testCases: Array,
   constraints: {
     type: [String],
   },
@@ -22,9 +23,9 @@ const questionSchema = new mongoose.Schema({
   tags: {
     type: [String],
   },
-  answers: {
-    type: [String],
-  },
+  // answers: {
+  //   type: [String],
+  // },
 
   //****************** */
   likes: {

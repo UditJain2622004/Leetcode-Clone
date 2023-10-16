@@ -1,0 +1,16 @@
+.page {
+  margin: 5% 5%;
+}
+
+.container {
+  /* display: flex; */
+  margin-top: 5%;
+  /* justify-content: center;
+  align-items: center;
+  height: 100vh; */
+}
+
+.question {
+  padding: 1.5%;
+  background-color: antiquewhite;
+}

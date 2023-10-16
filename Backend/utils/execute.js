@@ -13,8 +13,8 @@ const execute_params = {
   headers: {
     "content-type": "application/json",
     "Content-Type": "application/json",
-    "X-RapidAPI-Key": "b10063b6f7mshd920a35de930cd9p130a5djsncf74b05d49c2",
-    // "X-RapidAPI-Key": "59feebeae6msh5e475fbaffe97dbp1386c8jsnabe7693918e8",
+    // "X-RapidAPI-Key": "b10063b6f7mshd920a35de930cd9p130a5djsncf74b05d49c2",
+    "X-RapidAPI-Key": "59feebeae6msh5e475fbaffe97dbp1386c8jsnabe7693918e8",
     "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
   },
   //   data: {
@@ -40,8 +40,8 @@ const get_result_params = {
   //     fields: "*",
   //   },
   headers: {
-    "X-RapidAPI-Key": "b10063b6f7mshd920a35de930cd9p130a5djsncf74b05d49c2",
-    // "X-RapidAPI-Key": "59feebeae6msh5e475fbaffe97dbp1386c8jsnabe7693918e8",
+    // "X-RapidAPI-Key": "b10063b6f7mshd920a35de930cd9p130a5djsncf74b05d49c2",
+    "X-RapidAPI-Key": "59feebeae6msh5e475fbaffe97dbp1386c8jsnabe7693918e8",
     "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
     "Content-Type": "application/json",
   },
@@ -70,12 +70,13 @@ export const make_request = async (code_options, testCase, answer) => {
   }
 };
 
-export const make_batch_request = async (code_options, testCases, answers) => {
+export const make_batch_request = async (code_options, testCases) => {
   try {
+    // console.log(testCases);
     const params = { ...execute_params };
     params.url = "https://judge0-ce.p.rapidapi.com/submissions/batch";
-    const submissions = testCases.map((el, i) => {
-      return { ...code_options, stdin: el, expected_output: answers[i] };
+    const submissions = Object.keys(testCases).map((el) => {
+      return { ...code_options, stdin: el, expected_output: testCases[el] };
     });
     params.data = {};
     params.data.submissions = submissions;

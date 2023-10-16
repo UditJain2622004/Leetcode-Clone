@@ -23,3 +23,41 @@ export const execute = async (code, questionID) => {
     };
   }
 };
+export const getAllQuestions = async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/questions`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // console.log(response);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return {
+      status: "requestFail",
+      error: "Something Went Wrong.",
+    };
+  }
+};
+export const getAQuestion = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:3000/questions/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // console.log(response);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return {
+      status: "requestFail",
+      error: "Something Went Wrong.",
+    };
+  }
+};
