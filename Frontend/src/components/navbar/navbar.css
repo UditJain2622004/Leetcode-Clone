@@ -3,7 +3,8 @@
   background-color: #1e1e1e;
   border-bottom: 10px solid #282828;
   border-left: 10px solid #282828;
-  border-right: 0px solid #282828;
+  border-right: 10px solid #282828;
+  /* border-right: 0px solid #282828; */
   color: #bfbfbf;
   position: sticky;
 }

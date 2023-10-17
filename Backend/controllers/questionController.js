@@ -1,6 +1,7 @@
 import * as executer from "../utils/execute.js";
 import { check_answer } from "../utils/analyzer.js";
 import Question from "./../models/questionModel.js";
+import Submission from "./../models/submissionModel.js";
 
 export const getAllQuestions = async (req, res, next) => {
   try {
@@ -71,13 +72,25 @@ export const submitQuestion = async (req, res, next) => {
     //   console.log(results.submissions[submission]);
     // }
 
-    const output = check_answer(results.submissions);
+    const output = await check_answer(
+      results.submissions,
+      req.body.language_id
+    );
     // for (const submission in results.submissions) {
     //   console.log(results.submissions[submission].compile_output);
     // }
+    const { description, id, time, memory } = output;
+    const submission = await Submission.create({
+      question: req.params.id,
+      description,
+      id,
+      time,
+      memory,
+      language_id: req.body.language_id,
+    });
     console.log(output);
     res.status(201).json({
-      success: output.success,
+      success: true,
       data: {
         output,
       },

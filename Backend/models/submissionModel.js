@@ -9,17 +9,20 @@ const submissionSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
-  result: {
+  description: {
     type: String,
+  },
+  id: {
+    type: Number,
   },
   time: {
     type: Number,
   },
-  Memory: {
+  memory: {
     type: Number,
   },
-  language: {
-    type: String,
+  language_id: {
+    type: Number,
   },
 
   //********************* */
@@ -27,3 +30,7 @@ const submissionSchema = new mongoose.Schema({
     type: String,
   },
 });
+
+const Submission = mongoose.model("Submission", submissionSchema);
+
+export default Submission;

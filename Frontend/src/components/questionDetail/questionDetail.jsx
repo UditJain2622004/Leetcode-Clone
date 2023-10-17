@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { execute, getAQuestion } from "./api";
+import { execute, getAQuestion } from "../../api";
 import Editor from "@monaco-editor/react";
+import Console from "./console";
+import DotsLoader from "./../../utils/loader";
 import "./questionDetail.css";
-import "./index.js";
-import fileInfo from "./utils/fileInfo.js";
+import "../../index.js";
+import fileInfo from "../../utils/fileInfo.js";
 
 function QuestionDetail() {
   const { id } = useParams();
@@ -21,8 +23,8 @@ function QuestionDetail() {
     fetchQuestion();
   }, []);
 
-  const [console, setConsole] = useState(false);
-
+  const [console, setConsole] = useState("start");
+  const [response, setResponse] = useState({});
   const [fileName, setFileName] = useState("main.cpp");
   const editorRef = useRef(null);
   const file = fileInfo[fileName];
@@ -46,6 +48,7 @@ function QuestionDetail() {
   }
 
   async function submit() {
+    setConsole("running");
     const source_code = editorRef.current.getValue();
     const response = await execute(
       {
@@ -55,6 +58,9 @@ function QuestionDetail() {
       // "652cd43a90e389882fb55a98"
       id
     );
+
+    setResponse(response);
+    setConsole("ran");
   }
 
   return (
@@ -91,8 +97,9 @@ function QuestionDetail() {
           )}
 
         <div className="console-area">
-          <button className="console">Console</button>
-          <p>Accepted</p>
+          <button className="console-button">Console</button>
+          {console == "running" && <DotsLoader />}
+          {console == "ran" && <Console response={response} />}
         </div>
       </div>
       <div className="solution col col-sm-12 col-md-8 col-lg-7 col-xl-6">

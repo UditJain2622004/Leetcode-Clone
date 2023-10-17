@@ -3,9 +3,12 @@ body {
   margin: 0;
   background-color: #282828;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 .lang {
+  border-right: 10px solid #282828;
+  border-left: 10px solid #282828;
   padding: 5px;
   background-color: #1e1e1e;
   position: sticky;
@@ -27,7 +30,7 @@ select {
   border-left: 20px solid #282828;
   /* border-bottom: 10px solid #282828; */
   border-radius: 3%;
-  height: 99vh;
+  height: 90vh;
   overflow-y: scroll;
   color: #bfbfbf;
 }
@@ -36,6 +39,10 @@ select {
   border-right: 10px solid #282828;
   border-radius: 3%;
   padding: 0;
+
+  /* padding: 0 15px; */
+  /* border-right: 10px solid #282828;
+  border-left: 20px solid #282828; */
 }
 ::-webkit-scrollbar {
   width: 3px;
@@ -50,9 +57,11 @@ select {
 }
 
 .buttons {
+  border-right: 10px solid #282828;
+  border-left: 10px solid #282828;
   padding: 10px 15px;
   border-top: 10px solid #282828;
-  border-radius: 10%;
+  border-radius: 3%;
   /* border-bottom: 10px solid #282828; */
   background-color: #1e1e1e;
   text-align: right;
@@ -62,8 +71,9 @@ select {
 .submit {
   border-radius: 10%;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(158, 246, 158);
+  background-color: #2ab25d;
   padding: 5px 15px;
+  color: #ffffff;
 }
 
 .statement {
@@ -75,19 +85,47 @@ select {
 .bold {
   color: #f4f1f1;
 }
-.console {
+.console-button {
+  padding: 1%;
   border: none;
   background-color: #1e1e1e;
   color: #bfbfbf;
   margin-bottom: 10px;
 }
 .console-area {
+  box-shadow: 0 4px 6px rgba(228, 226, 226, 0.1);
   padding: 10px 15px;
   border-top: 10px solid #282828;
   background-color: #282828;
   /* text-align: right; */
-  height: 300px;
+  /* height: 300px; */
+  border-radius: 3%;
+  border: 1px solid rgba(191, 191, 191, 0.3);
+  line-height: 1;
 }
 .editor {
-  height: 80vh;
+  height: 77vh;
+  border-right: 10px solid #282828;
+  border-left: 10px solid #282828;
+}
+
+/* .console {
+
+} */
+
+.green-txt {
+  color: #2ab25d;
+  /* color: rgb(158, 246, 158); */
+}
+.red-txt {
+  color: #ef4743;
+  /* color: rgb(158, 246, 158); */
+}
+
+.console-details {
+  padding: 15px;
+  margin: 0 20px;
+  border: 1px solid rgba(191, 191, 191, 0.3);
+  border-radius: 5%;
+  background-color: #1e1e1e;
 }

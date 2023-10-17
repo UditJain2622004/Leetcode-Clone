@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./homepage.css";
-import { getAllQuestions } from "../../src/api";
+import { getAllQuestions } from "../../api.js";
 import Question from "./question";
+import QuestionList from "./questionList";
 
 function Homepage() {
   const [questions, setQuestions] = useState([]);
@@ -23,7 +24,8 @@ function Homepage() {
   }, []);
   return (
     <div className="page">
-      <h1>Problem List</h1>
+      <QuestionList questions={questions} />
+      {/* <h1>Problem List</h1>
 
       <div className="container">
         {questions.length > 0 && (
@@ -35,7 +37,7 @@ function Homepage() {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

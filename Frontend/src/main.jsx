@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Homepage from "../components/homepage/homepage";
-import QuestionDetail from "./questionDetail";
-import Navbar from "../components/navbar/navbar";
+import Homepage from "./components/homepage/homepage";
+import QuestionList from "./components/homepage/questionList";
+import QuestionDetail from "./components/questionDetail/questionDetail";
+import Navbar from "./components/navbar/navbar";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
