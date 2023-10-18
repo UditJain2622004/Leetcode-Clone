@@ -95,20 +95,18 @@ export const make_batch_request = async (code_options, testCases) => {
     // console.log(params2.url);
     params2.url += "&base64_encoded=true";
 
-    await delay(1000);
-    const response2 = await axios.request(params2);
+    // await delay(1000);
+    let response2 = await axios.request(params2);
+    while (
+      response2.data.submissions.some(
+        (res) => res.status.id === 1 || res.status.id === 2
+      )
+    ) {
+      response2 = await axios.request(params2);
+    }
+    response2.data.submissions.forEach((el) => console.log(el.status.id));
 
     return response2.data;
-    // let response2;
-    // setTimeout(async function () {
-    //   response2 = await axios.request(params2);
-    //   return response2.data;
-    // }, 1000);
-    // let response2 = await axios.request(params2);
-    // while (response2.data.status_id == 1 || response2.data.status_id == 2) {
-    //   response2 = await axios.request(params2);
-    // }
-    // console.log(response2.data);
   } catch (error) {
     console.error(error);
   }

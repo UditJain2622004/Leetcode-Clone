@@ -35,9 +35,12 @@ export const check_answer = async (results, language_id) => {
       if (time * 1 <= accepted_submissions[i].time) time_count += 1;
       if (memory * 1 <= accepted_submissions[i].memory) memory_count += 1;
     }
-    const time_status = (time_count / accepted_submissions.length) * 100;
-    const memory_status = (memory_count / accepted_submissions.length) * 100;
+    const time_status = (time_count / accepted_submissions.length) * 100 || 0;
+    const memory_status =
+      (memory_count / accepted_submissions.length) * 100 || 0;
     response = {
+      total_cases: results.length,
+      passed_cases: correct,
       description: status.description,
       id: status.id,
       success: true,

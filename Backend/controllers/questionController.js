@@ -19,7 +19,7 @@ export const getAllQuestions = async (req, res, next) => {
     console.log(err);
     res.status(400).json({
       success: false,
-      error: err,
+      error: "Something went wrong!",
     });
   }
 };
@@ -37,7 +37,7 @@ export const getQuestion = async (req, res, next) => {
     console.log(err);
     res.status(400).json({
       success: false,
-      error: err,
+      error: "Something went wrong!",
     });
   }
 };
@@ -55,39 +55,40 @@ export const addQuestion = async (req, res, next) => {
     console.log(err);
     res.status(400).json({
       success: false,
-      error: err,
+      error: "Something went wrong!",
     });
   }
 };
 
 export const submitQuestion = async (req, res, next) => {
   try {
+    const user = req.body.user;
+    if (user) delete req.body.user;
+
     const question = await Question.findById(req.params.id);
-    // console.log(question);
     const results = await executer.make_batch_request(
       req.body,
       question.testCases
     );
-    // for (const submission in results.submissions) {
-    //   console.log(results.submissions[submission]);
-    // }
 
     const output = await check_answer(
       results.submissions,
       req.body.language_id
     );
-    // for (const submission in results.submissions) {
-    //   console.log(results.submissions[submission].compile_output);
-    // }
-    const { description, id, time, memory } = output;
-    const submission = await Submission.create({
-      question: req.params.id,
-      description,
-      id,
-      time,
-      memory,
-      language_id: req.body.language_id,
-    });
+
+    if (user) {
+      const { description, id, time, memory } = output;
+      const submission = await Submission.create({
+        question: req.params.id,
+        user: user._id,
+        description,
+        id,
+        time,
+        memory,
+        language_id: req.body.language_id,
+      });
+    }
+
     console.log(output);
     res.status(201).json({
       success: true,
@@ -99,7 +100,7 @@ export const submitQuestion = async (req, res, next) => {
     console.log(err);
     res.status(400).json({
       success: false,
-      error: err,
+      error: "Something went wrong!",
     });
   }
 };
@@ -115,7 +116,7 @@ export const deleteQuestion = async (req, res, next) => {
     console.log(err);
     res.status(400).json({
       success: false,
-      error: err,
+      error: "Something went wrong!",
     });
   }
 };

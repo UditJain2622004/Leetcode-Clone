@@ -6,6 +6,8 @@ import bodyParser from "body-parser";
 
 // import executer from "./execute.js";
 import questionRouter from "./routes/questionRouter.js";
+import userRouter from "./routes/userRouter.js";
+import authRouter from "./routes/authRouter.js";
 
 dotenv.config({ path: "./config.env" });
 
@@ -32,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: "100kb" }));
 
 app.use("/questions", questionRouter);
+app.use("/users", userRouter);
+app.use("/auth", authRouter);
 
 // app.post("/submit", async (req, res, next) => {
 //   // console.log(req.body);
