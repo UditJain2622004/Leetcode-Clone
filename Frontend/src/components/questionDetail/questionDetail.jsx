@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { execute, getAQuestion } from "../../api";
 import Editor from "@monaco-editor/react";
 import Console from "./console";
@@ -9,6 +10,8 @@ import "../../index.js";
 import fileInfo from "../../utils/fileInfo.js";
 
 function QuestionDetail() {
+  const user = useSelector((state) => state.user?.user);
+
   const { id } = useParams();
   const [question, setQuestion] = useState({});
   useEffect(() => {
@@ -50,14 +53,12 @@ function QuestionDetail() {
   async function submit() {
     setConsole("running");
     const source_code = editorRef.current.getValue();
-    const response = await execute(
-      {
-        source_code,
-        language_id: file.id,
-      },
-      // "652cd43a90e389882fb55a98"
-      id
-    );
+    let options = {
+      source_code,
+      language_id: file.id,
+    };
+    if (user) options.user = user;
+    const response = await execute(options, id);
 
     setResponse(response);
     setConsole("ran");
@@ -68,7 +69,7 @@ function QuestionDetail() {
     <div className="row">
       <div className="question-statement col col-sm-11 col-md-4 col-lg-5 col-xl-6">
         <h2 className="title bold">{question.title}</h2>
-        <p className="statement">{question.statement}</p>
+        <p className="statement">{question.statement || <DotsLoader />}</p>
         <hr />
         {Object.keys(question).length > 0 && question?.examples.length > 0 && (
           <div className="examples">

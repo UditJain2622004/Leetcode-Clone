@@ -29,8 +29,8 @@ select {
   border-right: 10px solid #282828;
   border-left: 20px solid #282828;
   /* border-bottom: 10px solid #282828; */
-  border-radius: 3%;
-  height: 90vh;
+  /* border-radius: 3%; */
+  height: 91vh;
   overflow-y: scroll;
   color: #bfbfbf;
 }
@@ -81,6 +81,7 @@ select {
 }
 .examples {
   margin-bottom: 35px;
+  line-height: 1;
 }
 .bold {
   color: #f4f1f1;

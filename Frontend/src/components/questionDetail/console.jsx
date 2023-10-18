@@ -17,6 +17,9 @@ function Console({ response }) {
           <div className="row">
             <div className="col">
               <h4 className="green-txt">Accepted ✅</h4>
+              <p className="green-txt">
+                Cases Passed : {details.passed_cases}/{details.total_cases}
+              </p>
             </div>
             <div className="col console-details">
               <h4>Runtime</h4>
@@ -37,7 +40,12 @@ function Console({ response }) {
       {details && !details.success && (
         <div className="console">
           <div className="row">
-            <h5 className=" red-txt col">❌ {details.description}</h5>
+            <p className="red-txt col">
+              Cases Passed : {details.passed_cases}/{details.total_cases}
+            </p>
+          </div>
+          <div className="row">
+            <h5 className="red-txt col">❌ {details.description}</h5>
           </div>
           <div className="row">
             {details.stderr && <p className=" red-txt col">{details.stderr}</p>}

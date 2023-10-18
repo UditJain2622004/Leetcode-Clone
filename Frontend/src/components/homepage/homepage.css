@@ -1,5 +1,5 @@
 .page {
-  margin: 5% 5%;
+  margin: 3% 5%;
 }
 
 .container {
@@ -8,4 +8,9 @@
   /* justify-content: center;
   align-items: center;
   height: 100vh; */
+}
+
+.homepage-title {
+  color: #bfbfbf;
+  margin-bottom: 3%;
 }

@@ -8,3 +8,15 @@
   color: #bfbfbf;
   position: sticky;
 }
+
+.navbar-brand:hover {
+  /* text-shadow: 2px 2px 4px rgba(237, 229, 229, 0.5); */
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+.nav-buttons {
+  text-align: end;
+}
+.nav-button {
+  margin: 0 20px;
+}
