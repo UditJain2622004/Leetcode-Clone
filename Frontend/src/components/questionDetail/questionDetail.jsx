@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { execute, getAQuestion } from "../../api";
 import Editor from "@monaco-editor/react";
 import Console from "./console";
+import Instructions from "../instructions/instructions";
 import DotsLoader from "./../../utils/loader";
 import "./questionDetail.css";
 import "../../index.js";
@@ -112,6 +113,24 @@ function QuestionDetail() {
             <option value="main.c">C</option>
             <option value="script.py">Python</option>
             <option value="main.java">Java</option>
+          </select>
+          <select id="instructions">
+            <option value="" selected>
+              Instructions
+            </option>
+            <option value="" disabled>
+              * Take Input from stdin.
+            </option>
+            <option value="" disabled>
+              * Put output to stdout.
+            </option>
+            <option value="" disabled>
+              * You can not put anything else to stdout other than the final
+              output.
+            </option>
+            <option value="" disabled>
+              * The first stdout is taken as output.
+            </option>
           </select>
         </div>
 

@@ -3,13 +3,17 @@ const files = {
     name: "script.py",
     language: "python",
     id: 71,
-    value: "# Write your code here",
+    value: `# READ INSTRUCTIONS BEFORE CODING.
+    
+# Write your code here`,
   },
   "main.c": {
     name: "main.c",
     language: "c",
     id: 48,
-    value: `#include <stdio.h>
+    value: `// READ INSTRUCTIONS BEFORE CODING.
+    
+#include <stdio.h>
 
 int main() {
     // Write your code here
@@ -21,7 +25,9 @@ int main() {
     name: "main.cpp",
     language: "cpp",
     id: 52,
-    value: `#include <iostream>
+    value: `// READ INSTRUCTIONS BEFORE CODING.
+    
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -31,21 +37,18 @@ int main() {
 }
 `,
   },
-  "app.js": {
-    name: "app.js",
-    language: "javascript",
-    id: 93,
-    value: "// Write your code here",
-  },
   "main.java": {
     name: "main.java",
     language: "java",
     id: 62,
-    value: `import java.util.Scanner;
+    value: `// READ INSTRUCTIONS BEFORE CODING.
+    
+import java.util.Scanner;
 
 public class Main {
 
   public static void main(String[] args) {
+    Scanner myObj = new Scanner(System.in);
     // Write your code here
   }
 }`,
