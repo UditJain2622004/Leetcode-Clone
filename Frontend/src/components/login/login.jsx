@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { store } from "../../store";
 import { login } from "../../api";
-import "./login.css";
 import DotsLoader from "../../utils/loader";
+
+import "./login.css";
 
 function LoginPage() {
   const navigate = useNavigate();

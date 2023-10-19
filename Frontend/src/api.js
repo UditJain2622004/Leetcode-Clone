@@ -1,19 +1,14 @@
-export const execute = async (code, questionID) => {
+const make_request = async (url, method, body) => {
   try {
-    console.log(code);
-    const response = await fetch(
-      `http://localhost:3000/questions/submit/${questionID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(code),
-        // user: JSON.stringify(user),
-        // code,
-      }
-    );
-    console.log(response);
+    const options = {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (body) options.body = body;
+    const response = await fetch(url, options);
+    // console.log(response);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -23,120 +18,48 @@ export const execute = async (code, questionID) => {
       error: "Something Went Wrong.",
     };
   }
+};
+
+export const execute = async (code, questionID) => {
+  const response = await make_request(
+    `http://localhost:3000/questions/submit/${questionID}`,
+    "POST",
+    JSON.stringify(code)
+  );
+
+  return response;
 };
 export const getAllQuestions = async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/questions`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request("http://localhost:3000/questions", "GET");
+  return response;
 };
 export const getAQuestion = async (id) => {
-  try {
-    const response = await fetch(`http://localhost:3000/questions/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request(`http://localhost:3000/questions/${id}`, "GET");
+  return response;
 };
+
 export const getProfile = async (id) => {
-  try {
-    const response = await fetch(`http://localhost:3000/users/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request(`http://localhost:3000/users/${id}`, "GET");
+  return response;
 };
 export const login = async (formdata) => {
-  try {
-    const response = await fetch(`http://localhost:3000/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    });
-    console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request(
+    `http://localhost:3000/auth/login`,
+    "POST",
+    JSON.stringify(formdata)
+  );
+  return response;
 };
 export const signup = async (formdata) => {
-  try {
-    const response = await fetch(`http://localhost:3000/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formdata),
-    });
-    console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request(
+    "http://localhost:3000/auth/signup",
+    "POST",
+    JSON.stringify(formdata)
+  );
+  return response;
 };
+
 export const logout = async (formdata) => {
-  try {
-    const response = await fetch(`http://localhost:3000/auth/logout`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
-    return {
-      status: "requestFail",
-      error: "Something Went Wrong.",
-    };
-  }
+  const response = make_request("http://localhost:3000/auth/logout", "GET");
+  return response;
 };

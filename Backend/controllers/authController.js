@@ -1,5 +1,3 @@
-import crypto from "crypto";
-import util from "util";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
@@ -11,9 +9,7 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, req, res) => {
   try {
-    console.log(user);
     const token = signToken(user._id);
-    console.log(token);
     const cookieOptions = {
       expires: new Date(
         Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -27,7 +23,6 @@ const createSendToken = (user, statusCode, req, res) => {
 
     res.status(statusCode).json({
       success: true,
-      // token,
       data: {
         user: user,
       },
@@ -39,14 +34,12 @@ const createSendToken = (user, statusCode, req, res) => {
 
 export const signup = async (req, res, next) => {
   try {
-    console.log(req.body);
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });
-    console.log(newUser);
 
     createSendToken(newUser, 201, req, res);
   } catch (err) {
@@ -62,7 +55,6 @@ export const login = async (req, res, next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email, password);
 
     // 1) Check if email & password are given in request
     if (!req.body.email || !req.body.password) {
@@ -71,6 +63,7 @@ export const login = async (req, res, next) => {
     // 2) Check if user exists & password is correct
     const user = await User.findOne({ email: email }).select("+password");
 
+    // 3) Compare passwords
     if (!user || !(await user.comparePassword(password, user.password))) {
       throw new Error("Incorrect email or password!!");
     }

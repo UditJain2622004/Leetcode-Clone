@@ -66,7 +66,6 @@ function QuestionDetail() {
   }
 
   return (
-    // <div className="container">
     <div className="row">
       <div className="question-statement col col-sm-11 col-md-4 col-lg-5 col-xl-6">
         <h2 className="title bold">{question.title}</h2>

@@ -26,9 +26,9 @@ const submissionSchema = new mongoose.Schema({
   },
 
   //********************* */
-  solution: {
-    type: String,
-  },
+  // solution: {
+  //   type: String,
+  // },
 });
 
 const Submission = mongoose.model("Submission", submissionSchema);

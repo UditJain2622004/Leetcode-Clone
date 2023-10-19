@@ -11,7 +11,6 @@ function Navbar() {
       <Link className="navbar-brand" to={"/"}>
         <span className="navbar-title">PracticeDen</span>
       </Link>
-      {/* <div className="nav-buttons"> */}
       {user && (
         <div className="nav-buttons">
           <Link className="navbar-brand nav-button" to={"/profile"}>
@@ -32,7 +31,6 @@ function Navbar() {
           </Link>
         </div>
       )}
-      {/* </div> */}
     </nav>
   );
 }

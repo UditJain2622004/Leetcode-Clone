@@ -12,7 +12,6 @@ const questionSchema = new mongoose.Schema({
     type: [Array],
   },
   testCases: Object,
-  // testCases: Array,
   constraints: {
     type: [String],
   },
@@ -27,16 +26,15 @@ const questionSchema = new mongoose.Schema({
   //   type: [String],
   // },
 
-  //****************** */
-  likes: {
-    type: Number,
-  },
-  solution: {
-    type: String,
-  },
-  number: {
-    type: Number,
-  },
+  // likes: {
+  //   type: Number,
+  // },
+  // solution: {
+  //   type: String,
+  // },
+  // number: {
+  //   type: Number,
+  // },
 });
 
 const Question = mongoose.model("Question", questionSchema);

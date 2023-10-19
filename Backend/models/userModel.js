@@ -1,6 +1,4 @@
-import crypto from "crypto";
 import mongoose from "mongoose";
-import validator from "validator";
 import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
@@ -43,34 +41,11 @@ const userSchema = new mongoose.Schema({
       message: "Passwords do not match",
     },
   },
-  // passwordChangedAt: Date,
-  // passwordResetToken: String,
-  // passwordResetExpires: Date,
-
-  // questionsSolved: {
-  //   type: [mongoose.Schema.ObjectId],
-  //   ref: "Question",
-  // },
-  // easy: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // medium: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // hard: {
-  //   type: Number,
-  //   default: 0,
-  // },
 
   //************* */
-  rank: {
-    type: Number,
-  },
-  solutions: {
-    type: String,
-  },
+  // rank: {
+  //   type: Number,
+  // },
 });
 
 userSchema.pre("save", async function (next) {
@@ -108,19 +83,6 @@ userSchema.methods.passwordChangedAfter = function (JWTTimestamp) {
 
   return false;
 };
-
-// userSchema.methods.createPasswordResetToken = function () {
-//   const resetToken = crypto.randomBytes(32).toString("hex");
-//   this.passwordResetToken = crypto
-//     .createHash("sha256")
-//     .update(resetToken)
-//     .digest("hex");
-
-//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-//   // console.log(resetToken);
-//   // console.log(this.passwordResetToken);
-//   return resetToken;
-// };
 
 const User = mongoose.model("User", userSchema);
 

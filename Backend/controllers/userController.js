@@ -39,12 +39,8 @@ export const getAllUsers = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
   try {
-    let details = filterObj(req.body, [
-      "name",
-      "email",
-      "password",
-      "passwordConfirm",
-    ]);
+    //prettier-ignore
+    let details = filterObj(req.body, ["name","email","password","passwordConfirm",]);
     const newUser = await User.create(details);
     newUser.password = undefined;
     res.status(201).json({
@@ -77,16 +73,12 @@ export const getUserById = async (req, res, next) => {
       .select("-__v -user -description")
       .lean();
 
-    console.log(submissions);
-
     const uniqueQuestionIds = Array.from(
       new Set(submissions.map((item) => item.question))
     );
     const uniqueQuestions = uniqueQuestionIds.map((id) => {
       return submissions.find((item) => item.question === id);
     });
-
-    console.log(uniqueQuestions);
 
     const stats = calculate_stats(uniqueQuestions);
     user.stats = stats;

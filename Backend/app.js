@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-// import executer from "./execute.js";
 import questionRouter from "./routes/questionRouter.js";
 import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
@@ -36,14 +35,6 @@ app.use(express.json({ limit: "100kb" }));
 app.use("/questions", questionRouter);
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
-
-// app.post("/submit", async (req, res, next) => {
-//   // console.log(req.body);
-//   await executer(req.body);
-//   res.status(200).json({
-//     status: "success",
-//   });
-// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

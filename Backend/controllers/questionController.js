@@ -5,9 +5,9 @@ import Submission from "./../models/submissionModel.js";
 
 export const getAllQuestions = async (req, res, next) => {
   try {
-    const questions = await Question.find().select(
-      "title difficulty tags likes number"
-    );
+    const questions = await Question.find()
+      .select("title difficulty tags likes number")
+      .lean();
 
     res.status(200).json({
       success: true,
@@ -66,14 +66,14 @@ export const submitQuestion = async (req, res, next) => {
     if (user) delete req.body.user;
 
     const question = await Question.findById(req.params.id);
-    const results = await executer.make_batch_request(
-      req.body,
-      question.testCases
-    );
+
+    //prettier-ignore
+    const results = await executer.make_batch_request(req.body, question.testCases);
 
     const output = await check_answer(
       results.submissions,
-      req.body.language_id
+      req.body.language_id,
+      req.params.id
     );
 
     if (user) {
@@ -89,7 +89,7 @@ export const submitQuestion = async (req, res, next) => {
       });
     }
 
-    console.log(output);
+    // console.log(output);
     res.status(201).json({
       success: true,
       data: {

@@ -1,16 +1,14 @@
 .navbar {
   padding: 5px 20px;
   background-color: #1e1e1e;
+  color: #bfbfbf;
+  position: sticky;
   border-bottom: 10px solid #282828;
   border-left: 10px solid #282828;
   border-right: 10px solid #282828;
-  /* border-right: 0px solid #282828; */
-  color: #bfbfbf;
-  position: sticky;
 }
 
 .navbar-brand:hover {
-  /* text-shadow: 2px 2px 4px rgba(237, 229, 229, 0.5); */
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
   text-decoration: underline;
 }

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import "./signup.css";
 import { signup } from "../../api";
 import { store } from "../../store";
 import DotsLoader from "../../utils/loader";
+
+import "./signup.css";
 
 function SignupPage() {
   const navigate = useNavigate();
