@@ -1,5 +1,13 @@
 import Submission from "../models/submissionModel.js";
 
+/**
+ * @param { array } accepted_submissions - an array of all the `Accepted` submissions of a question
+ * @param { Number } time_taken - time taken by current submission
+ * @param { Number } memory_used - memory used by current submission
+ * @returns { object }  an object containing `time_status` and `memory_status` of the current submission.
+ * @description
+ * Loops over the array of all `Accpeted` submissions and calculates the number of submissions the current submission betters, in terms of time and memory
+ */
 const calc_performance = (accepted_submissions, time_taken, memory_used) => {
   let time_count = 0;
   let memory_count = 0;
@@ -13,7 +21,13 @@ const calc_performance = (accepted_submissions, time_taken, memory_used) => {
   return { time_status, memory_status };
 };
 
-export const check_answer = async (results, language_id, question) => {
+/**
+ * @param { array } results - an array of results returned by execution engine
+ * @param { Number } language_id - `language_id` of language used to solve the question
+ * @param { Number } question_id - id of the question solved
+ * @returns { object }  a response object containing details about the submission
+ */
+export const check_answer = async (results, language_id, question_id) => {
   let correct = 0;
   let response;
   for (const result in results) {
@@ -22,6 +36,7 @@ export const check_answer = async (results, language_id, question) => {
       correct = correct + 1;
       continue;
     } else {
+      // if any test case failed, send error response
       let { message, compile_output, stderr, stdout } = el;
       response = {
         success: false,
@@ -38,12 +53,13 @@ export const check_answer = async (results, language_id, question) => {
     }
   }
 
+  // if all test cases passed, send success response
   if (correct == results.length) {
     const { time, memory, status } = results[0];
     const accepted_submissions = await Submission.find({
       id: 3,
       language_id,
-      question,
+      question: question_id,
     });
 
     const { time_status, memory_status } = calc_performance(

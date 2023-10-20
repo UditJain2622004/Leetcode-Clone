@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      // THIS WORKS ON SAVE AND CREATE ONLY, NOT ON UPDATE
       validator: function (el) {
         return el === this.password;
       },
@@ -48,7 +47,9 @@ const userSchema = new mongoose.Schema({
   // },
 });
 
+/**a pre-save hook to encrypt password */
 userSchema.pre("save", async function (next) {
+  // if `password` field is not modified, return
   if (!this.isModified("password")) return next();
 
   // encrypts the password
@@ -58,30 +59,12 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.pre("save", function (next) {
-  if (!this.isModified("password") || this.isNew) return next();
-
-  this.passwordChangedAt = Date.now() - 1000;
-  next();
-});
-
+/** Compares 2 passwords */
 userSchema.methods.comparePassword = async function (
   enteredPassword,
   Password
 ) {
   return await bcrypt.compare(enteredPassword, Password);
-};
-
-userSchema.methods.passwordChangedAfter = function (JWTTimestamp) {
-  if (this.passwordChangedAt) {
-    const changedTimeStamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
-      10
-    );
-    return JWTTimestamp < changedTimeStamp;
-  }
-
-  return false;
 };
 
 const User = mongoose.model("User", userSchema);

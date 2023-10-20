@@ -29,10 +29,12 @@ export const execute = async (code, questionID) => {
 
   return response;
 };
+
 export const getAllQuestions = async () => {
   const response = make_request("http://localhost:3000/questions", "GET");
   return response;
 };
+
 export const getAQuestion = async (id) => {
   const response = make_request(`http://localhost:3000/questions/${id}`, "GET");
   return response;
@@ -42,6 +44,7 @@ export const getProfile = async (id) => {
   const response = make_request(`http://localhost:3000/users/${id}`, "GET");
   return response;
 };
+
 export const login = async (formdata) => {
   const response = make_request(
     `http://localhost:3000/auth/login`,
@@ -50,6 +53,7 @@ export const login = async (formdata) => {
   );
   return response;
 };
+
 export const signup = async (formdata) => {
   const response = make_request(
     "http://localhost:3000/auth/signup",

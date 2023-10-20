@@ -1,8 +1,8 @@
 import React from "react";
+import "./console.css";
 
 function Console({ response }) {
   const details = response?.data?.output;
-  console.log(details);
   return (
     <>
       {!response.success && (

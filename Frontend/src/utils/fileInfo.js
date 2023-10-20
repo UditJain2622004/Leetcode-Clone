@@ -1,3 +1,5 @@
+/** Info about languages, their id (in judg0 api), default file name and default code */
+
 const files = {
   "script.py": {
     name: "script.py",
@@ -7,6 +9,7 @@ const files = {
     
 # Write your code here`,
   },
+
   "main.c": {
     name: "main.c",
     language: "c",
@@ -21,6 +24,7 @@ int main() {
     return 0;
 }`,
   },
+
   "main.cpp": {
     name: "main.cpp",
     language: "cpp",
@@ -37,6 +41,7 @@ int main() {
 }
 `,
   },
+
   "main.java": {
     name: "main.java",
     language: "java",

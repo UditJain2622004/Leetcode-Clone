@@ -1,5 +1,20 @@
 import axios from "axios";
 
+/*
+  We are using the `judge0` API for code execution. Its working is as follows :
+
+  To run a code, there are 2 endpoints:
+    1) /submissions         - to make a single submission
+    2) /submissions/batch   - to make multiple submissions in a single request
+  We use `/submissions/batch` in our app to make a submission for each test case
+
+  The request returns token/array of tokens which can be used to get the result for a submission.
+  We make another call to the API along with the tokens to get back the result
+*/
+
+/** Template object of options judge0 api expects when creating a submission.
+ * Commented out fields are set dynamically.
+ */
 const execute_params = {
   method: "POST",
   //   url: "https://judge0-ce.p.rapidapi.com/submissions/batch",
@@ -28,6 +43,9 @@ const execute_params = {
   //   },
 };
 
+/** Template object of options judge0 api expects when getting back result for submissions
+ * Commented out fields are set dynamically.
+ */
 const get_result_params = {
   method: "GET",
   // url: "https://judge0-ce.p.rapidapi.com/submissions/batch?tokens=",
@@ -44,6 +62,7 @@ const get_result_params = {
   },
 };
 
+/**Creates object of options judge0 api expects when creating a submission by adding dynamic data.*/
 const create_submission_req = (code_options, testCases) => {
   const options = { ...execute_params };
   options.url = "https://judge0-ce.p.rapidapi.com/submissions/batch";
@@ -55,6 +74,7 @@ const create_submission_req = (code_options, testCases) => {
   return options;
 };
 
+/**Creates object of options judge0 api expects when getting back result of submissions by adding dynamic data.*/
 const get_result_req = (response) => {
   const options = { ...get_result_params };
   options.url = "https://judge0-ce.p.rapidapi.com/submissions/batch?tokens=";
@@ -66,15 +86,21 @@ const get_result_req = (response) => {
   return options;
 };
 
+/** Make batch request to the judge0 api.
+ * We send mutiple submissions in a single request.
+ * The API returns a `token` for each submission which we can use to get back result for it.
+ */
 export const make_batch_request = async (code_options, testCases) => {
   try {
     //prettier-ignore
     const create_submission_options = create_submission_req(code_options,testCases);
 
+    // Make an API call to create a submission
     const response = await axios.request(create_submission_options);
 
     const get_result_options = get_result_req(response);
 
+    // Make an API call to get back result for the submissions
     let result = await axios.request(get_result_options);
 
     //prettier-ignore
@@ -82,12 +108,14 @@ export const make_batch_request = async (code_options, testCases) => {
       result = await axios.request(get_result_options);
     }
 
+    // return the submission result
     return result.data;
   } catch (error) {
     console.error(error);
   }
 };
 
+/**Make a single submission to the API */
 export const make_request = async (code_options, testCase, answer) => {
   try {
     code_options.expected_output = answer;

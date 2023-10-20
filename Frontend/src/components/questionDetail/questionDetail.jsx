@@ -4,21 +4,19 @@ import { useSelector } from "react-redux";
 import { execute, getAQuestion } from "../../api";
 import Editor from "@monaco-editor/react";
 import Console from "./console";
-import Instructions from "../instructions/instructions";
+// import Instructions from "../instructions/instructions";
 import DotsLoader from "./../../utils/loader";
 import "./questionDetail.css";
-import "../../index.js";
 import fileInfo from "../../utils/fileInfo.js";
 
 function QuestionDetail() {
   const user = useSelector((state) => state.user?.user);
-
   const { id } = useParams();
+
   const [question, setQuestion] = useState({});
   useEffect(() => {
     const fetchQuestion = async () => {
       const question = await getAQuestion(id);
-      // console.log(question);
       if (question.success) {
         setQuestion(question.data.question);
       }
@@ -33,10 +31,6 @@ function QuestionDetail() {
   const editorRef = useRef(null);
   const file = fileInfo[fileName];
 
-  function handleConsole() {
-    document.getElementsByClassName(".editor").style.height = "50vh";
-  }
-
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;
   }
@@ -45,11 +39,6 @@ function QuestionDetail() {
     const selectedFile = event.target.value;
     setFileName(selectedFile);
   };
-
-  function handleEditorValidation(markers) {
-    // model markers
-    markers.forEach((marker) => console.log("onValidate:", marker.message));
-  }
 
   async function submit() {
     setConsole("running");
@@ -103,6 +92,7 @@ function QuestionDetail() {
           {console == "ran" && <Console response={response} />}
         </div>
       </div>
+
       <div className="solution col col-sm-12 col-md-8 col-lg-7 col-xl-6">
         <div className="lang">
           <select id="languages" onChange={handleFileChange}>
@@ -135,29 +125,21 @@ function QuestionDetail() {
 
         <Editor
           className="editor"
-          // height="50vh"
           width="100%"
           theme="vs-dark"
           onMount={handleEditorDidMount}
-          onValidate={handleEditorValidation}
           path={file.name}
           defaultLanguage={file.language}
           defaultValue={file.value}
         />
 
-        <div className="buttons">
-          <button className="submit" onClick={() => submit()}>
+        <div className="buttons-section">
+          <button className="submit-btn" onClick={() => submit()}>
             Submit
           </button>
         </div>
-        {/* <div className="console-area">
-          <button className="console" onClick={() => submit()}>
-            Console
-          </button>
-        </div> */}
       </div>
     </div>
-    // </div>
   );
 }
 

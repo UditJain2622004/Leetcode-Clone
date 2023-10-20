@@ -1,13 +1,17 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
+/** Sign a jsonwebtoken */
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 
-const createSendToken = (user, statusCode, req, res) => {
+/**
+ * Creates a jsonwebtoken, creates a cookie and attach the jwt to it and sends the cookie along with response
+ */
+const createSendToken = (user, statusCode, res) => {
   try {
     const token = signToken(user._id);
     const cookieOptions = {
@@ -19,6 +23,7 @@ const createSendToken = (user, statusCode, req, res) => {
 
     res.cookie("jwt", token, cookieOptions);
 
+    // so that password is not sent in the response
     user.password = undefined;
 
     res.status(statusCode).json({
@@ -28,10 +33,15 @@ const createSendToken = (user, statusCode, req, res) => {
       },
     });
   } catch (err) {
-    next(err);
+    console.log(err);
+    res.status(400).json({
+      success: false,
+      error: err.message,
+    });
   }
 };
 
+/** Creates a new user document */
 export const signup = async (req, res, next) => {
   try {
     const newUser = await User.create({
@@ -41,7 +51,7 @@ export const signup = async (req, res, next) => {
       passwordConfirm: req.body.passwordConfirm,
     });
 
-    createSendToken(newUser, 201, req, res);
+    createSendToken(newUser, 201, res);
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -51,6 +61,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
+/**Logs the user in */
 export const login = async (req, res, next) => {
   try {
     const email = req.body.email;
@@ -67,7 +78,9 @@ export const login = async (req, res, next) => {
     if (!user || !(await user.comparePassword(password, user.password))) {
       throw new Error("Incorrect email or password!!");
     }
-    createSendToken(user, 200, req, res);
+
+    // 4) If everything is fine, log the user in
+    createSendToken(user, 200, res);
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -77,7 +90,9 @@ export const login = async (req, res, next) => {
   }
 };
 
+/**Logs the user out */
 export const logout = (req, res, next) => {
+  // reset the jwt cookie to empty string and expiry date of right now
   res.cookie("jwt", "", {
     expires: new Date(Date.now() + 1000),
     httpOnly: true,
